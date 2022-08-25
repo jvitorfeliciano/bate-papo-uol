@@ -34,6 +34,10 @@ section{
     height: auto;
     padding-top: 26px;
 }
+
+ul {
+    width: 100vw;
+}
 li {
     margin-top: 4px;
     padding-left: 8px;
