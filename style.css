@@ -35,10 +35,8 @@ section{
     padding-top: 26px;
 }
 
-ul {
-    width: 100vw;
-}
-li {
+
+div{
     margin-top: 4px;
     padding-left: 8px;
     display: flex;

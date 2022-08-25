@@ -34,12 +34,12 @@ function getMessagesuccess (answer){
     messageList = answer.data 
     const addMessage = document.querySelector('ul')
     for (let i=0; i<messageList.length; i++){
-        addMessage.innerHTML += `<li>
+        addMessage.innerHTML += `<div>
         <span class = "time">(${messageList[i].time}) </span>
         <span class = "from">${messageList[i].from} para </span>
         <span>${messageList[i].to} </span>
         <span>${messageList[i].text} </span>
-        </li>`
+        </div>`
     }
 }
 
