@@ -32,7 +32,7 @@ getMessage ();
 
 function getMessagesuccess (answer){
     messageList = answer.data 
-    const addMessage = document.querySelector('ul')
+    const addMessage = document.querySelector('section')
     for (let i=0; i<messageList.length; i++){
         addMessage.innerHTML += `<div>
         <span class = "time">(${messageList[i].time}) </span>
