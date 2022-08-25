@@ -3,7 +3,7 @@
 }
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #E5E5E5;
+    background-color: #F3F3F3;
     margin-top: 80px;
     margin-bottom:80px;
 }
@@ -27,14 +27,32 @@ header {
 
 header ion-icon{
     font-size: 50px;
-    position: relative;
 }
 
 section{
     width: 100vw;
     height: auto;
+    padding-top: 26px;
+}
+li {
+    margin-top: 4px;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 100vw;
+    background-color: aqua;
 }
 
+.time {
+    color: #AAAAAA;
+}
+.from {
+    color: #000000;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+}
 footer {
     width: 100vw;
     height: 80px;
