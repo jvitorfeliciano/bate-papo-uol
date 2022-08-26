@@ -1,18 +1,18 @@
+const name ="";
 let messageList = [];
 
-let individual = {name: prompt('Qual é o seu nome?')} 
-
-
+const individual = {name: prompt('Qual é o seu nome?')}
 function nameValidation (){
     const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', individual)
     request.then(nameValidationsuccess)
     request.catch(nameValidationerror)
 }
+
 nameValidation ();
 
-function nameValidationsuccess(answer){
-    const enter = document.querySelector('ul')
-    enter.innerHTML = `<li>${individual.name} entra na sala<li>`
+function nameValidationsuccess(){
+    getMessage ()
+
 }
 
 function nameValidationerror(error){
@@ -33,13 +33,17 @@ function getMessagesuccess (answer){
     messageList = answer.data 
     const addMessage = document.querySelector('ul')
     for (let i=0; i<messageList.length; i++){
-        addMessage.innerHTML += `<li>
-        <span class = "time">(${messageList[i].time}) </span>
-        <span class = "from">${messageList[i].from} para </span>
-        <span>${messageList[i].to} </span>
-        <span>${messageList[i].text} </span>
-        </li>`
-    }
+        addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
+        <p>
+            <span>(${messageList[i].time})</span>
+            <span class="from">${messageList[i].from} para </span>
+            <span> ${messageList[i].to}</span>
+            <span >${messageList[i].text}</span> 
+        </p>
+    </li>`
+    }  
+    const last = document.querySelector('ul').lastElementChild
+    last.scrollIntoView()
 }
 
 function getMessageerror (error){
@@ -47,8 +51,35 @@ function getMessageerror (error){
 }
 
 function sendMessage (){
-    
+     inputValue = document.querySelector('input').value
+    let message = {
+        from: individual.name,
+        to:"Todos",
+        text: inputValue,
+        type:"message"
+    }
 
-    const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', dado)
-    alert('oi')
+    console.log(message)
+    const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', message)
+    request.then(getMessage)
+    request.catch(sendMessageerror)
+  
+
 }
+
+function sendMessageerror(error){
+    window.location.reload()
+}
+
+function reloadMessage(){
+   setInterval(getMessage,3000)
+}
+
+reloadMessage();
+
+function keepConection (){
+    const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/status',individual)
+    request.then(console.log('deu certo'))
+}
+
+setInterval(keepConection,5000);
