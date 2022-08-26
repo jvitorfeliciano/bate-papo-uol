@@ -32,6 +32,7 @@ getMessage ();
 function getMessagesuccess (answer){
     messageList = answer.data 
     const addMessage = document.querySelector('ul')
+    addMessage.innerHTML =""
     for (let i=0; i<messageList.length; i++){
         addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
         <p>
