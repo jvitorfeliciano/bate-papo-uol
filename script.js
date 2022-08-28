@@ -1,8 +1,8 @@
-const name ="";
 let messageList = [];
+let individual = "";
 
-const individual = {name: prompt('Qual é o seu nome?')}
 function nameValidation (){
+    individual = {name: prompt('Qual é o seu nome?')}
     const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', individual)
     request.then(nameValidationsuccess)
     request.catch(nameValidationerror)
@@ -18,7 +18,7 @@ function nameValidationsuccess(){
 function nameValidationerror(error){
     console.log(error.response.status)
     alert ('Insira outro nome, pois este já está em uso.')
-    individual = {name: prompt('Qual é o seu nome?')} 
+    nameValidation ()
 }
 
 function getMessage (){
@@ -35,7 +35,7 @@ function getMessagesuccess (answer){
     addMessage.innerHTML =""
     for (let i=0; i<messageList.length; i++){
         if (messageList[i].type==='status') {
-            addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
+            addMessage.innerHTML += `<li class="${messageList[i].type}" >
         <p>
             <span class="time">(${messageList[i].time})</span>
             <span class="from">${messageList[i].from}</span>
@@ -44,7 +44,7 @@ function getMessagesuccess (answer){
     </li>`
         } 
         else if(messageList[i].type==="message"){
-            addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
+            addMessage.innerHTML += `<li class="${messageList[i].type}" >
             <p>
                 <span class="time">(${messageList[i].time})</span>
                 <span class="from">${messageList[i].from}</span>
@@ -55,7 +55,7 @@ function getMessagesuccess (answer){
         </li>`
         }
         else {
-            addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
+            addMessage.innerHTML += `<li class="${messageList[i].type}" >
             <p>
                 <span class="time">(${messageList[i].time})</span>
                 <span class="from">${messageList[i].from}</span>
@@ -104,7 +104,7 @@ reloadMessage();
 
 function keepConection (){
     const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/status',individual)
-    request.then(console.log('connection passed'))
+    request.then(right)
     request.catch(error)
     
 }
@@ -112,5 +112,10 @@ function keepConection (){
 setInterval(keepConection,5000);
 
 function error (err){
-    console.log(err)
+    const erro =err.response.status
+    console.log(erro)
+}
+
+function right (resp){
+    console.log(resp)
 }
