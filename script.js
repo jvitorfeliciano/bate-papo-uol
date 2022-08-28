@@ -17,7 +17,7 @@ function nameValidationsuccess(){
 
 function nameValidationerror(error){
     console.log(error.response.status)
-    alert ('Insira outro nome')
+    alert ('Insira outro nome, pois este já está em uso.')
     individual = {name: prompt('Qual é o seu nome?')} 
 }
 
@@ -54,12 +54,13 @@ function getMessagesuccess (answer){
             </p>
         </li>`
         }
-        else if(messageList[i].type==="private_message"){
+        else {
             addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
             <p>
                 <span class="time">(${messageList[i].time})</span>
                 <span class="from">${messageList[i].from}</span>
-                <span >para  ${messageList[i].to}</span>
+                <span >para </span>
+                <span class="to">${messageList[i].to}:</span>
                 <span > ${messageList[i].text}</span>  
             </p>
         </li>`
@@ -103,7 +104,13 @@ reloadMessage();
 
 function keepConection (){
     const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/status',individual)
-    request.then(console.log('deu certo'))
+    request.then(console.log('connection passed'))
+    request.catch(error)
+    
 }
 
 setInterval(keepConection,5000);
+
+function error (err){
+    console.log(err)
+}
