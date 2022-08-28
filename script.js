@@ -34,14 +34,36 @@ function getMessagesuccess (answer){
     const addMessage = document.querySelector('ul')
     addMessage.innerHTML =""
     for (let i=0; i<messageList.length; i++){
-        addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
+        if (messageList[i].type==='status') {
+            addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
         <p>
-            <span>(${messageList[i].time})</span>
-            <span class="from">${messageList[i].from} para </span>
-            <span> ${messageList[i].to}</span>
+            <span class="time">(${messageList[i].time})</span>
+            <span class="from">${messageList[i].from}</span>
             <span >${messageList[i].text}</span> 
         </p>
     </li>`
+        } 
+        else if(messageList[i].type==="message"){
+            addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
+            <p>
+                <span class="time">(${messageList[i].time})</span>
+                <span class="from">${messageList[i].from}</span>
+                <span>para</span> 
+                <span class="to"> ${messageList[i].to}:</span>
+                <span > ${messageList[i].text}</span>  
+            </p>
+        </li>`
+        }
+        else if(messageList[i].type==="private_message"){
+            addMessage.innerHTML += `<li class="${messageList[i].type} id="${messageList[i]}" >
+            <p>
+                <span class="time">(${messageList[i].time})</span>
+                <span class="from">${messageList[i].from}</span>
+                <span >para  ${messageList[i].to}</span>
+                <span > ${messageList[i].text}</span>  
+            </p>
+        </li>`
+        }
     }  
     const last = document.querySelector('ul').lastElementChild
     last.scrollIntoView()
@@ -52,7 +74,7 @@ function getMessageerror (error){
 }
 
 function sendMessage (){
-     inputValue = document.querySelector('input').value
+    let inputValue = document.querySelector('input').value
     let message = {
         from: individual.name,
         to:"Todos",
@@ -64,8 +86,9 @@ function sendMessage (){
     const request = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', message)
     request.then(getMessage)
     request.catch(sendMessageerror)
-  
 
+    const clearIpunt = document.querySelector('input')
+    clearIpunt.value = ""; 
 }
 
 function sendMessageerror(error){
